@@ -36,7 +36,7 @@
 
 We used [Nucleotide Transformer](https://github.com/instadeepai/nucleotide-transformer) models to embed sequences with a maximum length of 5952 nucleotides. Sequences longer than 5952 nucleotides were truncated. Specifically, we used the `500M_human_ref` and `500M_multi_species_v2` models for human and mouse respectively.
 
- - `05_embed_nuc_seq_mouse.ipynb`
- - `06_embed_nuc_seq_human.ipynb`
+ - `04_nuc_nt_emb_mouse.ipynb`
+ - `05_nuc_nt_emb_human.ipynb`
 
 
