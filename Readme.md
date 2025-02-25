@@ -1,4 +1,5 @@
 
+### Genome-wide nucleotide and amino acid sequences.
 
 #### 1. Download fasta files for cdna sequences:
 
@@ -30,5 +31,12 @@
 |gene_symbol|ensg_id|enst_id|nuc_seq_length|aa_seq_length|nuc_aa_seq_ratio|chromosome|start|end|strand|nuc_seq|aa_seq|
 |---|---|---|---|---|---|---|---|---|---|---|---|
 |Gm20730|ENSMUSG00.. |ENSMUST00 |359|119.0|3.01|GRCm39:6|430 |4305 |-1.0|ATGAGGTGC |MRCLAEFLR.
+
+### Embedding nucleotide sequences with Nucleotide Transformer
+
+We used [Nucleotide Transformer](https://github.com/instadeepai/nucleotide-transformer) models to embed sequences with a maximum length of 5952 nucleotides. Sequences longer than 5952 nucleotides were truncated. Specifically, we used the `500M_human_ref` and `500M_multi_species_v2` models for human and mouse respectively.
+
+ - `05_embed_nuc_seq_mouse.ipynb`
+ - `06_embed_nuc_seq_human.ipynb`
 
 
