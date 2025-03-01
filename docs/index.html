@@ -133,14 +133,14 @@ div.csl-indent {
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
-  <li><a href="#carbon-footprint" id="toc-carbon-footprint" class="nav-link" data-scroll-target="#carbon-footprint">Carbon footprint</a>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a>
   <ul class="collapse">
   <li><a href="#nucleotide-transformer" id="toc-nucleotide-transformer" class="nav-link" data-scroll-target="#nucleotide-transformer">Nucleotide Transformer</a></li>
   <li><a href="#esm3" id="toc-esm3" class="nav-link" data-scroll-target="#esm3">ESM3</a></li>
   <li><a href="#mmidas" id="toc-mmidas" class="nav-link" data-scroll-target="#mmidas">MMIDAS</a></li>
   </ul></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a>
+  <li><a href="#carbon-footprint" id="toc-carbon-footprint" class="nav-link" data-scroll-target="#carbon-footprint">Carbon footprint</a>
   <ul class="collapse">
   <li><a href="#nucleotide-transformer-1" id="toc-nucleotide-transformer-1" class="nav-link" data-scroll-target="#nucleotide-transformer-1">Nucleotide Transformer</a></li>
   <li><a href="#esm3-1" id="toc-esm3-1" class="nav-link" data-scroll-target="#esm3-1">ESM3</a></li>
@@ -178,47 +178,41 @@ Figure&nbsp;1: 2d UMAP projection of the NT and ESM3 embeddings for mouse genes.
 </figcaption>
 </figure>
 </div>
-<p>Such representations are not only</p>
-<p>Details about the joint clustering. Show elbow plot, which suggests xxx number of joint clusters.</p>
-<blockquote class="blockquote">
-<p>Show elbow plot for joint clustering and consensus plot.</p>
-</blockquote>
+<p>We used MMIDAS to obtain a consensus clustering of the NT- and ESM3 embeddings for mouse genes. <a href="#fig-mouse-mmidas" class="quarto-xref">Figure&nbsp;2</a> shows the consensus score across different views (modalities) of genes as a function of number of clusters. We inspect a few individual clusters when the number of discrete categories is 27.</p>
+<div id="fig-mouse-mmidas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mouse-mmidas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./mouse-mmidas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;2: MMIDAS for consensus clusters Left: The consensus score across different views (modalities) of genes as a function of dimensionality of the discrete representation layer. Black dashed line indicates the maximum number of categories with consensus score of 0.9. Right: Consistency of categorical (n=27) assignment of genes across views."><img src="./mouse-mmidas.png" class="img-fluid figure-img" width="500"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mouse-mmidas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: <strong>MMIDAS for consensus clusters</strong> Left: The consensus score across different views (modalities) of genes as a function of dimensionality of the discrete representation layer. Black dashed line indicates the maximum number of categories with consensus score of 0.9. Right: Consistency of categorical (n=27) assignment of genes across views.
+</figcaption>
+</figure>
+</div>
 <p>We selected one cluster to investigate using bioinformatics tools. We tested genes in cluster xxxx with <code>gget</code> to explore what aspect of annotations for cluster number xxx.</p>
 <blockquote class="blockquote">
 <p>gget analysis (plot? + table of significant functions / pathways)</p>
 </blockquote>
 <p>While for a large majority of genes, a consensus grouping across protein and DNA views is possible, there are some genes that seem to not be grouped together.</p>
-<blockquote class="blockquote">
-<p>We investigate those genes as a singular group with gget.</p>
-</blockquote>
+<pre><code>&gt; We investigate those genes as a singular group with gget.
+&gt;  - Mouse gene group 28 (Igh, Igk family)
+&gt;  - Mouse gene group 1 (Ubiquitination)
+&gt;  - Mouse gene group 50 (Extra-cellular processes)
+&gt;  - Human gene group 5 (IGH, IGK family)
+&gt;  - Mouse gene group 36 (Gpr family)
+&gt;  - Human gene group 25 (GPR family)</code></pre>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
-<p>We can group group genes, provides a new way to refine ontologies. Many genes dont have functional annotations. This could be one way to assign putative functions.</p>
-<p><span class="citation" data-cites="Bigge2025Structure">Bigge and York (<a href="#ref-Bigge2025Structure" role="doc-biblioref">2025</a>)</span> recently showed that for some proteins that are struturally similar. &gt; Some connection with either unimodal clustering or our proposed clustering.</p>
-<p>Discuss the gget results, add context.</p>
-<p>Caveats: how to get the embedding? Different layers may be used to generate these embeddings. Link with sparse autoencoders (interpretability).</p>
+<p>We can group genes based on multiple views offered by distinct kinds of genomic foundational models. This approach may offer a way to refine ontologies (e.g.&nbsp;for genes that do not have annotations yet).</p>
+<p><span class="citation" data-cites="Bigge2025Structure">Bigge and York (<a href="#ref-Bigge2025Structure" role="doc-biblioref">2025</a>)</span> recently showed that despite strutural similarity, some proteins can have different functions. &gt; Some connection with either unimodal clustering or our proposed clustering.</p>
+<p>Foundation models often assign different meaning and utility to representations extracted from different layers. Choosing a single representation per input sequence is not straightforward in the absence of a well-defined task. We therefore followed examples in the respective repositories for the models we used to obtain a single representation for each gene.</p>
+<p>The bioinformatics analysis with <code>gget</code> does not include background, and the we don’t suggest reading too much into the significance values. We used this for exploratory analysis to interpret our groupings.</p>
 <p>Downstream tasks typically matter in the choice of embedding. This potentially leads to differences in groupings even within modality, and will influence joint clustering as well.</p>
-</section>
-<section id="carbon-footprint" class="level2">
-<h2 class="anchored" data-anchor-id="carbon-footprint">Carbon footprint</h2>
-<section id="nucleotide-transformer" class="level3">
-<h3 class="anchored" data-anchor-id="nucleotide-transformer">Nucleotide Transformer</h3>
-<p>A single A100 GPU on the local HPC was used to run inference with nucleotide transformer. The largest batch size we could use without running out of memory on this hardware was 20, and the inference time for the dataset was around 20 minutes. The total energy consumption for this exercise is estimated to be 0.2 kW.</p>
-</section>
-<section id="esm3" class="level3">
-<h3 class="anchored" data-anchor-id="esm3">ESM3</h3>
-<p>We ran computations on <code>ml.g5.2xlarge</code> instances via Amazon SageMaker using an endpoint for the ESM3 hosted on their marketplace. Generating embeddings for all genes of a single species took about 10 hours. The total energy consumption for <code>ml.g5.2xlarge</code> was about 6 kW.</p>
-</section>
-<section id="mmidas" class="level3">
-<h3 class="anchored" data-anchor-id="mmidas">MMIDAS</h3>
-<p>For training MMIDAS, we utilized the local high-performance computing (HPC), using 1 x Tesla V100 SXM2 GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14 kW.</p>
-<p>Future experiments could include callbacks to <a href="https://mlco2.github.io/codecarbon/index.html">CodeCarbon</a> to track the carbon footprint of the experiments.</p>
-</section>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>We obtained genome-wide cDNA sequences for human and mouse from <a href="">Ensembl</a>. Custom scripts and the <code>gget</code> package <span class="citation" data-cites="luebbert2023efficient">(<a href="#ref-luebbert2023efficient" role="doc-biblioref">Luebbert and Pachter 2023</a>)</span> were used to obtain the nucleotide and amino acid sequences corresponding to all available mouse and human genes in the Ensembl database. We ended up with 20,909 mouse and 19,364 human genes at this stage.</p>
+<p>We obtained genome-wide cDNA sequences for human and mouse from <a href="https://useast.ensembl.org/index.html">Ensembl</a>. Custom scripts and the <code>gget</code> package <span class="citation" data-cites="luebbert2023efficient">(<a href="#ref-luebbert2023efficient" role="doc-biblioref">Luebbert and Pachter 2023</a>)</span> were used to obtain the nucleotide and amino acid sequences corresponding to all available mouse and human genes in the Ensembl database. We ended up with 20,909 mouse and 19,364 human genes at this stage.</p>
 <div id="tbl-aa-emb" class="rpe striped hover borderless responsive-sm table-caption quarto-float quarto-figure quarto-figure-center anchored" style="font-size: 95%; width: 90%; margin: auto auto;">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-aa-emb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -270,13 +264,13 @@ Table&nbsp;1: <strong>Summary of amino acid sequence embeddings</strong> The saf
 <div aria-describedby="fig-seq-length-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="./length_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Sequence length distribution"><img src="./length_dist.png" class="img-fluid figure-img" width="600"></a></p>
+<p><a href="./length_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Sequence length distribution"><img src="./length_dist.png" class="img-fluid figure-img" width="600"></a></p>
 <figcaption>Sequence length distribution</figcaption>
 </figure>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seq-length-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: <strong>Sequence length distribution</strong> Distribution of nucleotide and amino acid sequences corresponding to all genes in the Ensembl database for mouse and human. Black line indicates the sequence length corresponding to the maximum token length for the nucleotide transformer.
+Figure&nbsp;3: <strong>Sequence length distribution</strong> Distribution of nucleotide and amino acid sequences corresponding to all genes in the Ensembl database for mouse and human. Black line indicates the sequence length corresponding to the maximum token length for the nucleotide transformer.
 </figcaption>
 </figure>
 </div>
@@ -284,19 +278,37 @@ Figure&nbsp;2: <strong>Sequence length distribution</strong> Distribution of nuc
 <section id="models" class="level2">
 <h2 class="anchored" data-anchor-id="models">Models</h2>
 <p>Nucleotide Transformer <span class="citation" data-cites="dalla2024nucleotide">(<a href="#ref-dalla2024nucleotide" role="doc-biblioref">Dalla-Torre et al. 2024</a>)</span> as our DNA FM and ESM3 <span class="citation" data-cites="hayes2025simulating">(<a href="#ref-hayes2025simulating" role="doc-biblioref">Hayes et al. 2025</a>)</span> as our protein FM. Finally, we used MMIDAS <span class="citation" data-cites="marghi2024joint">(<a href="#ref-marghi2024joint" role="doc-biblioref">Marghi et al. 2024</a>)</span> to obtain joint embeddings of genes based on their representations in the DNA and protein FMs.</p>
+<section id="nucleotide-transformer" class="level3">
+<h3 class="anchored" data-anchor-id="nucleotide-transformer">Nucleotide Transformer</h3>
+<p>Tokens in the nucleotide transformer are used to represent k-mers. The maximum token length is 1,000, which corresponds to sequences with length of roughly 5,952 nucleotides. Sequences that were longer than this were truncated to this value <a href="#fig-seq-length" class="quarto-xref">Figure&nbsp;3</a>.</p>
+<p>We obtained embeddings corresonding to the <code>CLS</code> token for all genes. There is no single representation for which layer to extract such embeddings from. We followed examples in the repository, and obtained representations from layer 20 of the <code>500M multi v2</code> and <code>500M human</code> models for the mouse and human nucleotide sequences respectively. The dimension of the embeddings are of 1,280 for mouse genes, and 1024 for human genes. We refer to these as NT embeddings.</p>
+</section>
+<section id="esm3" class="level3">
+<h3 class="anchored" data-anchor-id="esm3">ESM3</h3>
+<p>ESM3-open<span class="citation" data-cites="hayes2025simulating">(<a href="#ref-hayes2025simulating" role="doc-biblioref">Hayes et al. 2025</a>)</span> is a generative AI model with a total of 98B parameters developed by that integrates three aspects of proteins: sequence, structure, and function. Trained on a dataset comprising 2.78B natural protein sequences, ESM3-open employs a masked language modeling objective.</p>
+<p>To address biosecurity concerns, ESM3-open incorporates a safety filter that excludes potentially hazardous sequences from its training data, see <a href="https://huggingface.co/EvolutionaryScale/esm3-sm-open-v1">model card</a>.</p>
+<p>We generated amino acid sequence embeddings using the real-time endpoint model. The model produces two types of embeddings: per-residue embeddings, which represent each amino acid within the sequence, and a mean embedding, which is the average of all residue embeddings across the entire protein sequence. For both mouse and human sequences, we only use the 1536 dimensional mean embedding for the amino acid sequences. We refer to these as ESM3 embeddings.</p>
+</section>
+<section id="mmidas" class="level3">
+<h3 class="anchored" data-anchor-id="mmidas">MMIDAS</h3>
+<p>The MMIDAS model<span class="citation" data-cites="marghi2024joint">(<a href="#ref-marghi2024joint" role="doc-biblioref">Marghi et al. 2024</a>)</span> was recently proposed to obtain joint embeddings of multimodal single-cell resolution data. Treating genes as our samples, and NT- and ESM3-embeddings as ‘modalities’, we obtained consensus clusters for genes.</p>
+<p>MMIDAS sparsifies the discrete representation layer to identify an optimal number of consensus categories across modalities. At the start of training, the network initializes an overparameterized discrete latent space, establishing an upper bound on the number of clusters. The model refines this through evaluating each category’s contribution based on a consensus measure between the modalities. Categories that do not maintain similar probabilities across modalities are pruned. This iterative process continues until all remaining categories satisfy a predefined minimum consensus threshold (90% for this study).</p>
+</section>
+</section>
+<section id="carbon-footprint" class="level2">
+<h2 class="anchored" data-anchor-id="carbon-footprint">Carbon footprint</h2>
 <section id="nucleotide-transformer-1" class="level3">
 <h3 class="anchored" data-anchor-id="nucleotide-transformer-1">Nucleotide Transformer</h3>
-<p>Tokens in the nucleotide transformer are used to represent k-mers. The maximum token length is 1000, which corresponds to sequences with length of roughly 5952 nucleotides. Sequences that were longer than this were truncated to this value <a href="#fig-seq-length" class="quarto-xref">Figure&nbsp;2</a>.</p>
-<p>We obtained embeddings corresonding to the <code>CLS</code> token for all genes. There is no single representation for which layer to extract such embeddings from. We followed examples in the repository, and obtained representations from layer 20 of the <code>500M multi v2</code> and <code>500M human</code> models for the mouse and human nucleotide sequences respectively. The dimension of the embeddings are of 1280 for mouse genes, and 1024 for human genes. We refer to these as NT embeddings.</p>
+<p>A single A100 GPU on the local HPC was used to run inference with nucleotide transformer. The largest batch size we could use without running out of memory on this hardware was 20, and the inference time for the dataset was around 20 minutes. The total energy consumption for this exercise is estimated to be 0.2 kW.</p>
 </section>
 <section id="esm3-1" class="level3">
 <h3 class="anchored" data-anchor-id="esm3-1">ESM3</h3>
-<p>ESM3-open<span class="citation" data-cites="hayes2025simulating">(<a href="#ref-hayes2025simulating" role="doc-biblioref">Hayes et al. 2025</a>)</span> is a generative AI model with a total of 98 billion parameters developed by that integrates three aspects of proteins: sequence, structure, and function. Trained on a dataset comprising 2.78 billion natural protein sequences, ESM3-open employs a masked language modeling objective.</p>
-<p>To address biosecurity concerns, ESM3-open incorporates a safety filter that excludes potentially hazardous sequences from its training data, see <a href="https://huggingface.co/EvolutionaryScale/esm3-sm-open-v1">model card</a>.</p>
+<p>We ran computations on <code>ml.g5.2xlarge</code> instances via Amazon SageMaker using an endpoint for the ESM3 hosted on their marketplace. Generating embeddings for all genes of a single species took about 10 hours. The total energy consumption for <code>ml.g5.2xlarge</code> was about 6 kW.</p>
 </section>
 <section id="mmidas-1" class="level3">
 <h3 class="anchored" data-anchor-id="mmidas-1">MMIDAS</h3>
-<p>The MMIDAS model was recently proposed to obtain joint embeddings of multimodal single-cell resolution data. Treating genes as our samples, and NT- and ESM3-embeddings as ‘modalities’, we obtained joint clusterings for genes.</p>
+<p>For training MMIDAS, we utilized the local high-performance computing (HPC), using 1 x Tesla V100 SXM2 GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14 kW.</p>
+<p>Future experiments could incorporate <a href="https://mlco2.github.io/codecarbon/index.html">CodeCarbon</a> to track the carbon footprint of the experiments.</p>
 
 </section>
 </section>
