@@ -39,4 +39,16 @@ We used [Nucleotide Transformer](https://github.com/instadeepai/nucleotide-trans
  - `04_nuc_nt_emb_mouse.ipynb`
  - `05_nuc_nt_emb_human.ipynb`
 
+### Embedding amino-acid sequences with ESM3
 
+ - Coming soon
+
+### MMIDAS joint clustering
+
+ - See the [nautilex-esm repository](https://github.com/alleninstitute/nautilex-esm/)
+
+### Combining results for analysis and visualization
+
+We performed Leiden clustering for `nt-emb` and `esm3-emb`, along with 2d umap projections. Results are merged with those from MMIDAS joint clustering for further visualization. 
+
+ - `05_nuc_nt_emb_human.ipynb`
