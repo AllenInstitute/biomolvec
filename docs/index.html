@@ -74,6 +74,10 @@ div.csl-indent {
 <meta name="citation_reference" content="citation_title=Efficient querying of genomic reference databases with gget;,citation_author=Laura Luebbert;,citation_author=Lior Pachter;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_issue=1;,citation_volume=39;,citation_journal_title=Bioinformatics;,citation_publisher=Oxford University Press;">
 <meta name="citation_reference" content="citation_title=Joint inference of discrete cell types and continuous type-specific variability in single-cell datasets with MMIDAS;,citation_author=Yeganeh Marghi;,citation_author=Rohan Gala;,citation_author=Fahimeh Baftizadeh;,citation_author=Uygar Sümbül;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_issue=9;,citation_volume=4;,citation_journal_title=Nature Computational Science;,citation_publisher=Nature Publishing Group US New York;">
 <meta name="citation_reference" content="citation_title=Structure-based protein clustering sometimes, but not always, provides insight into protein function;,citation_author=Brae M. Bigge;,citation_author=Ryan York;,citation_publication_date=2025;,citation_cover_date=2025;,citation_year=2025;,citation_journal_title=Arcadia Science;,citation_publisher=Arcadia Science;">
+<meta name="citation_reference" content="citation_title=Gene set knowledge discovery with enrichr;,citation_author=Z. Xie;,citation_author=A. Bailey;,citation_author=M. V. Kuleshov;,citation_author=D. J. Clarke;,citation_author=J. E. Evangelista;,citation_author=S. L. Jenkins;,citation_author=A. Lachmann;,citation_author=M. L. Wojciechowicz;,citation_author=E. Kropiwnicki;,citation_author=K. M. Jagodnik;,citation_author=M. Jeon;,citation_publication_date=2021-03;,citation_cover_date=2021-03;,citation_year=2021;,citation_journal_title=Current Protocols;">
+<meta name="citation_reference" content="citation_title=Protocol update for large-scale genome and gene function analysis with the PANTHER classification system (v. 14.0);,citation_author=H. Mi;,citation_author=A. Muruganujan;,citation_author=X. Huang;,citation_author=D. Ebert;,citation_author=C. Mills;,citation_author=X. Guo;,citation_author=P. D. Thomas;,citation_publication_date=2019-03;,citation_cover_date=2019-03;,citation_year=2019;,citation_issue=3;,citation_volume=14;,citation_journal_title=Nature protocols;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=A coupled autoencoder approach for multi-modal analysis of cell types;,citation_author=R. Gala;,citation_author=N. Gouwens;,citation_author=Z. Yao;,citation_author=A. Budzillo;,citation_author=O. Penn;,citation_author=B. Tasic;,citation_author=G. Murphy;,citation_author=H. Zeng;,citation_author=U. Sümbül;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_volume=32;,citation_conference_title=Advances in neural information processing systems;">
+<meta name="citation_reference" content="citation_title=Learning transferable visual models from natural language supervision;,citation_author=Alec Radford;,citation_author=Jong Wook Kim;,citation_author=Chris Hallacy;,citation_author=Aditya Ramesh;,citation_author=Gabriel Goh;,citation_author=Sandhini Agarwal;,citation_author=Girish Sastry;,citation_author=Amanda Askell;,citation_author=Pamela Mishkin;,citation_author=Jack Clark;,citation_author=Gretchen Krueger;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_volume=139;,citation_conference_title=International conference on machine learning;,citation_conference=PMLR;,citation_series_title=Proceedings of machine learning research;">
 </head>
 
 <body>
@@ -178,18 +182,25 @@ Figure&nbsp;2: <strong>MMIDAS for consensus clusters</strong> Left: The consensu
 </figcaption>
 </figure>
 </div>
-<p>We selected a few joint clusters to investigate with <code>gget</code><span class="citation" data-cites="luebbert2023efficient">(<a href="#ref-luebbert2023efficient" role="doc-biblioref">Luebbert and Pachter 2023</a>)</span>. In particular, we were interested in whether the genes in particular clusters are enriched for particular functions according to various annotations.</p>
-<p>While for a large majority of genes, a consensus grouping across protein and DNA views is possible, there are some genes that seem to not be grouped together.</p>
+<p>We investigated genes included in MMIDAS joint clusters with <code>gget</code><span class="citation" data-cites="luebbert2023efficient">(<a href="#ref-luebbert2023efficient" role="doc-biblioref">Luebbert and Pachter 2023</a>)</span>. In particular, <code>gget</code> provides an interface to <a href="https://maayanlab.cloud/Enrichr/">Enrichr</a> <span class="citation" data-cites="xie2021gene">(<a href="#ref-xie2021gene" role="doc-biblioref">Xie et al. 2021</a>)</span>, and results are based on the <code>GO Biological Process</code> category with annotations from the 2021 annotation release.</p>
+<div id="fig-go-enrichment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-go-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./go_enrichment.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;3: MMIDAS joint clusters capture functionally relevant genes GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels."><img src="./go_enrichment.png" class="img-fluid figure-img" width="650"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-go-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: <strong>MMIDAS joint clusters capture functionally relevant genes</strong> GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels.
+</figcaption>
+</figure>
+</div>
+<p>Among the clusters we investigated, we noticed that none of the 215 genes in <code>mmidas-joint-18</code> were found through <code>gget</code>. The gene names suggested that these genes are all part of the immunoglobin family. These genes also appear in clustered on both the NT- and ESM3-embedding UMAPs. Moreover, we noticed that immunoglobin genes also cluster together in a single <code>mmidas-joint</code> grouping of human genes. We used the PANTHER Overrepresentation Test <span class="citation" data-cites="mi2019protocol">(<a href="#ref-mi2019protocol" role="doc-biblioref">Mi et al. 2019</a>)</span> through the <a href="https://www.geneontology.org/">GO ontology resource</a> which uses a more recent version of the GO ontology to investigate this further. This analysis found that genes in this cluster are significantly overrepresented for <a href="https://amigo.geneontology.org/amigo/term/GO:0016064">immunoglobulin mediated immune response</a> and <a href="https://amigo.geneontology.org/amigo/term/GO:0003823">antigen binding</a>.</p>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
-<p>We can group genes based on multiple views offered by distinct kinds of genomic foundational models. This approach may offer a way to refine ontologies (e.g.&nbsp;for genes that do not have annotations yet).</p>
-<blockquote class="blockquote">
-<p>Gpr, Igk, IGh family end up in joint clusters interpretation. Cross species connection.</p>
-</blockquote>
-<p><span class="citation" data-cites="Bigge2025Structure">Bigge and York (<a href="#ref-Bigge2025Structure" role="doc-biblioref">2025</a>)</span> recently showed that despite strutural similarity, some proteins can have different functions. &gt; Some connection with either unimodal clustering or our proposed clustering.</p>
-<p>Foundation models often assign different meaning and utility to representations extracted from different layers. Choosing a single representation per input sequence is not straightforward in the absence of a well-defined task. We therefore followed examples in the respective repositories for the models we used to obtain a single representation for each gene.</p>
-<p>The bioinformatics analysis with <code>gget</code> does not include background, and the we don’t suggest reading too much into the significance values. We used this for exploratory analysis to interpret our groupings.</p>
+<p>We can group genes based on multiple views offered by distinct kinds of genomic foundational models. This approach may offer a robust way to refine ontologies. Our analysis captured a set of immunoglobin genes across species, that are annotated only in more recent versions of commonly used databases for gene annotation.</p>
+<p>A subset of inputs that such foundation models are trained on are biologically coherent entities. Our preliminary analysis already captures such relationships across two such models - one trained only on DNA sequences to predict masked tokens, and another trained only on amino acid sequences to predict protein structure. Curating and leveraging such data to align representations in biological foundation models with various coupling strategies <span class="citation" data-cites="gala2019coupled marghi2024joint radford2021learning">(<a href="#ref-gala2019coupled" role="doc-biblioref">Gala et al. 2019</a>; <a href="#ref-marghi2024joint" role="doc-biblioref">Marghi et al. 2024</a>; <a href="#ref-radford2021learning" role="doc-biblioref">Radford et al. 2021</a>)</span> might be a way to create truly multimodal biological foundation models.</p>
+<p>A hurdle towards this vision is that large transformer-like models assign different meaning and utility to representations extracted from different layers, and for particular input tokens depending on the training objective. Choosing a single representation per input sequence <em>post-hoc</em>, and without a well-defined task can be tricky. Here we followed examples in the respective repositories for the models we used to obtain a single representation for each gene, which may not be the best approach.</p>
+<p>The downstream analysis with various bioinformatics tools for overrepresentation should be interpreted with caution. We used them here as an exploratory tool to interpret our groupings.</p>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
@@ -245,13 +256,13 @@ Table&nbsp;1: <strong>Summary of amino acid sequence embeddings</strong> The saf
 <div aria-describedby="fig-seq-length-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="./length_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Sequence length distribution"><img src="./length_dist.png" class="img-fluid figure-img" width="650"></a></p>
+<p><a href="./length_dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Sequence length distribution"><img src="./length_dist.png" class="img-fluid figure-img" width="650"></a></p>
 <figcaption>Sequence length distribution</figcaption>
 </figure>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seq-length-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: <strong>Sequence length distribution</strong> Distribution of nucleotide and amino acid sequences corresponding to all genes in the Ensembl database for mouse and human. Black line indicates the sequence length corresponding to the maximum token length for the nucleotide transformer.
+Figure&nbsp;4: <strong>Sequence length distribution</strong> Distribution of nucleotide and amino acid sequences corresponding to all genes in the Ensembl database for mouse and human. Black line indicates the sequence length corresponding to the maximum token length for the nucleotide transformer. The x-axis is truncated, and excludes a small number of sequences (e.g.&nbsp;Ttn, which has a sequence length of 1,23,179 nucleotides and 35,390 amino-acids)
 </figcaption>
 </figure>
 </div>
@@ -259,7 +270,7 @@ Figure&nbsp;3: <strong>Sequence length distribution</strong> Distribution of nuc
 <section id="models" class="level2">
 <h2 class="anchored" data-anchor-id="models">Models</h2>
 <p>Nucleotide Transformer <span class="citation" data-cites="dalla2024nucleotide">(<a href="#ref-dalla2024nucleotide" role="doc-biblioref">Dalla-Torre et al. 2024</a>)</span> as our DNA FM and ESM3 <span class="citation" data-cites="hayes2025simulating">(<a href="#ref-hayes2025simulating" role="doc-biblioref">Hayes et al. 2025</a>)</span> as our protein FM. Finally, we used MMIDAS <span class="citation" data-cites="marghi2024joint">(<a href="#ref-marghi2024joint" role="doc-biblioref">Marghi et al. 2024</a>)</span> to obtain joint embeddings of genes based on their representations in the DNA and protein FMs.</p>
-<p><strong>Nucleotide Transformer:</strong> This model <span class="citation" data-cites="dalla2024nucleotide">(<a href="#ref-dalla2024nucleotide" role="doc-biblioref">Dalla-Torre et al. 2024</a>)</span> is pre-trained to predict masked tokens in DNA sequences. Tokens in the nucleotide transformer are used to represent k-mers (k=6). Adding a few extra tokens to indicate <code>CLS</code>, <code>MASK</code>, <code>PAD</code> etc. takes the vocabulary size to 4,104. The maximum token length in the models considered is 1,000, which corresponds to sequences with length of roughly 5,952 nucleotides. We truncated any input sequence to match this maximum value, <a href="#fig-seq-length" class="quarto-xref">Figure&nbsp;3</a>.</p>
+<p><strong>Nucleotide Transformer:</strong> This model <span class="citation" data-cites="dalla2024nucleotide">(<a href="#ref-dalla2024nucleotide" role="doc-biblioref">Dalla-Torre et al. 2024</a>)</span> is pre-trained to predict masked tokens in DNA sequences. Tokens in the nucleotide transformer are used to represent k-mers (k=6). Adding a few extra tokens to indicate <code>CLS</code>, <code>MASK</code>, <code>PAD</code> etc. takes the vocabulary size to 4,104. The maximum token length in the models considered is 1,000, which corresponds to sequences with length of roughly 5,952 nucleotides. We truncated any input sequence to match this maximum value, <a href="#fig-seq-length" class="quarto-xref">Figure&nbsp;4</a>.</p>
 <p>We obtained embeddings corresonding to the <code>CLS</code> token for all genes. There is no single representation for which layer to extract such embeddings from. We followed examples in the repository, and obtained representations from layer 20 of the <code>500M multi v2</code> and <code>500M human</code> models for the mouse and human nucleotide sequences respectively. The dimension of the embeddings are of 1,280 for mouse genes, and 1024 for human genes. We refer to these as NT embeddings.</p>
 <p><strong>ESM3:</strong> ESM3-open<span class="citation" data-cites="hayes2025simulating">(<a href="#ref-hayes2025simulating" role="doc-biblioref">Hayes et al. 2025</a>)</span> is a 98B parameter model that is trained on 2.78B natural protein sequences to predict sequence, structure, and functional aspects using a masked language modeling objective. This model incorporates a guardrails that can prevent inference on potentially hazardous sequences, see <a href="https://huggingface.co/EvolutionaryScale/esm3-sm-open-v1">model card</a>.</p>
 <p>The model exposes per-residue embeddings, which represent each amino acid within the sequence, and a mean embedding, which is the average of all residue embeddings across the entire protein sequence. For both mouse and human sequences, we only use the 1,536 dimensional mean embedding to represent the amino acid sequences corresponding to the genes. We refer to these as ESM3 embeddings.</p>
@@ -268,19 +279,20 @@ Figure&nbsp;3: <strong>Sequence length distribution</strong> Distribution of nuc
 </section>
 <section id="carbon-footprint" class="level2">
 <h2 class="anchored" data-anchor-id="carbon-footprint">Carbon footprint</h2>
-<p><strong>Nucleotide Transformer:</strong> A single <code>A100</code> GPU on the local HPC was used to run inference with nucleotide transformer. The largest batch size we could use without running out of memory on this hardware was 20, and the inference time for the dataset was around 20 minutes. The total energy consumption for this exercise is estimated to be 0.2 kW.</p>
+<p>In relation to the sustainability focus of the hackathon, we calculated a rough estimate of the carbon footprint of the computations we performed.</p>
+<p><strong>Nucleotide Transformer:</strong> A single <code>A100</code> GPU on the local high performance computing cluster was used to run inference with nucleotide transformer. The largest batch size we could use without running out of memory on this hardware was 20, and the inference time for the dataset was around 20 minutes. The total energy consumption for this exercise is estimated to be 0.2 kW.</p>
 <p><strong>ESM3:</strong> We ran computations on <code>ml.g5.2xlarge</code> instances via Amazon SageMaker using an endpoint for the ESM3 hosted on their marketplace. Generating embeddings for all genes of a single species took about 10 hours. The total energy consumption for <code>ml.g5.2xlarge</code> was about 6.0 kW.</p>
-<p><strong>MMIDAS:</strong> For training MMIDAS, we utilized the local high-performance computing (HPC), using 1 x Tesla V100 SXM2 GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14.0 kW.</p>
-<p>All embeddings were saved on shared storage to prevent duplicate computations by team members. Future experiments could incorporate tools like <a href="https://mlco2.github.io/codecarbon/index.html">CodeCarbon</a> to more reliably track the carbon footprint of experiments run across environments and .</p>
+<p><strong>MMIDAS:</strong> For training MMIDAS, we utilized the local high-performance computing (HPC), using one <code>Tesla V100 SXM2</code> GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14.0 kW.</p>
+<p>All embeddings were saved on shared storage to prevent duplicate computations by team members. Future experiments could incorporate tools like <a href="https://mlco2.github.io/codecarbon/index.html">CodeCarbon</a> to more reliably track the carbon footprint of experiments run across computing environments and devices.</p>
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Bigge2025Structure" class="csl-entry" role="listitem">
-Bigge, Brae M., and Ryan York. 2025. <span>“Structure-Based Protein Clustering Sometimes, but Not Always, Provides Insight into Protein Function.”</span> <em>Arcadia Science</em>.
-</div>
 <div id="ref-dalla2024nucleotide" class="csl-entry" role="listitem">
 Dalla-Torre, Hugo, Liam Gonzalez, Javier Mendoza-Revilla, Nicolas Lopez Carranza, Adam Henryk Grzywaczewski, Francesco Oteri, Christian Dallago, et al. 2024. <span>“Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics.”</span> <em>Nature Methods</em>, 1–11.
+</div>
+<div id="ref-gala2019coupled" class="csl-entry" role="listitem">
+Gala, R., N. Gouwens, Z. Yao, A. Budzillo, O. Penn, B. Tasic, G. Murphy, H. Zeng, and U. Sümbül. 2019. <span>“A Coupled Autoencoder Approach for Multi-Modal Analysis of Cell Types.”</span> In <em>Advances in Neural Information Processing Systems</em>. Vol. 32.
 </div>
 <div id="ref-hayes2025simulating" class="csl-entry" role="listitem">
 Hayes, Thomas, Roshan Rao, Halil Akin, Nicholas J Sofroniew, Deniz Oktay, Zeming Lin, Robert Verkuil, et al. 2025. <span>“Simulating 500 Million Years of Evolution with a Language Model.”</span> <em>Science</em>, eads0018.
@@ -290,6 +302,15 @@ Luebbert, Laura, and Lior Pachter. 2023. <span>“Efficient Querying of Genomic 
 </div>
 <div id="ref-marghi2024joint" class="csl-entry" role="listitem">
 Marghi, Yeganeh, Rohan Gala, Fahimeh Baftizadeh, and Uygar Sümbül. 2024. <span>“Joint Inference of Discrete Cell Types and Continuous Type-Specific Variability in Single-Cell Datasets with MMIDAS.”</span> <em>Nature Computational Science</em> 4 (9): 706–22.
+</div>
+<div id="ref-mi2019protocol" class="csl-entry" role="listitem">
+Mi, H., A. Muruganujan, X. Huang, D. Ebert, C. Mills, X. Guo, and P. D. Thomas. 2019. <span>“Protocol Update for Large-Scale Genome and Gene Function Analysis with the PANTHER Classification System (v. 14.0).”</span> <em>Nature Protocols</em> 14 (3): 703–21.
+</div>
+<div id="ref-radford2021learning" class="csl-entry" role="listitem">
+Radford, Alec, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, et al. 2021. <span>“Learning Transferable Visual Models from Natural Language Supervision.”</span> In <em>International Conference on Machine Learning</em>, 139:8748–63. Proceedings of Machine Learning Research. PMLR.
+</div>
+<div id="ref-xie2021gene" class="csl-entry" role="listitem">
+Xie, Z., A. Bailey, M. V. Kuleshov, D. J. Clarke, J. E. Evangelista, S. L. Jenkins, A. Lachmann, et al. 2021. <span>“Gene Set Knowledge Discovery with Enrichr.”</span> <em>Current Protocols</em>, March.
 </div>
 </div></section></div></main>
 <!-- /main column -->
