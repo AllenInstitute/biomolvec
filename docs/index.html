@@ -6,6 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Rohan Gala">
+<meta name="author" content="Yeganeh Marghi">
+<meta name="dcterms.date" content="2025-03-02">
 
 <title>Do foundation models represent genes differently?</title>
 <style>
@@ -62,12 +65,32 @@ div.csl-indent {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #000000;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #000000;
+      }
+</style>
 
 
 <link rel="stylesheet" href="styles.css">
 <meta name="citation_title" content="Do foundation models represent genes differently?">
 <meta name="citation_author" content="Rohan Gala">
 <meta name="citation_author" content="Yeganeh Marghi">
+<meta name="citation_publication_date" content="2025-03-02">
+<meta name="citation_cover_date" content="2025-03-02">
+<meta name="citation_year" content="2025">
+<meta name="citation_online_date" content="2025-03-02">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Evaluating the representational power of pre-trained DNA language models for regulatory genomics;,citation_author=Ziqi Tang;,citation_author=Nirali Somia;,citation_author=Yiyang Yu;,citation_author=Peter K Koo;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_journal_title=bioRxiv;">
 <meta name="citation_reference" content="citation_title=Nucleotide transformer: Building and evaluating robust foundation models for human genomics;,citation_author=Hugo Dalla-Torre;,citation_author=Liam Gonzalez;,citation_author=Javier Mendoza-Revilla;,citation_author=Nicolas Lopez Carranza;,citation_author=Adam Henryk Grzywaczewski;,citation_author=Francesco Oteri;,citation_author=Christian Dallago;,citation_author=Evan Trop;,citation_author=Bernardo P Almeida;,citation_author=Hassan Sirelkhatim;,citation_author=others;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_journal_title=Nature Methods;,citation_publisher=Nature Publishing Group US New York;">
@@ -117,6 +140,12 @@ div.csl-indent {
         <div class="quarto-title-meta">
 
                       
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">March 2, 2025</p>
+            </div>
+          </div>
           
                 
               </div>
@@ -141,6 +170,7 @@ div.csl-indent {
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
   <li><a href="#carbon-footprint" id="toc-carbon-footprint" class="nav-link" data-scroll-target="#carbon-footprint">Carbon footprint</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
   </ul>
 </nav>
 </div>
@@ -164,7 +194,7 @@ div.csl-indent {
 <div id="fig-mouse-umap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mouse-umap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<iframe width="650" height="325" src="./umap_plot.html">
+<iframe width="700" height="350" src="./umap_plot.html">
 </iframe>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mouse-umap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -286,6 +316,10 @@ Figure&nbsp;4: <strong>Sequence length distribution</strong> Distribution of nuc
 <p><strong>ESM3:</strong> We ran computations on <code>ml.g5.2xlarge</code> instances via Amazon SageMaker using an endpoint for the ESM3 hosted on their marketplace. Generating embeddings for all genes of a single species took about 10 hours. The total energy consumption for <code>ml.g5.2xlarge</code> was about 6.0 kW.</p>
 <p><strong>MMIDAS:</strong> For training MMIDAS, we utilized the local high-performance computing (HPC), using one <code>Tesla V100 SXM2</code> GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14.0 kW.</p>
 <p>All embeddings were saved on shared storage to prevent duplicate computations by team members. Future experiments could incorporate tools like <a href="https://mlco2.github.io/codecarbon/index.html">CodeCarbon</a> to more reliably track the carbon footprint of experiments run across computing environments and devices.</p>
+</section>
+<section id="code" class="level2">
+<h2 class="anchored" data-anchor-id="code">Code</h2>
+<p>See the <a href="https://github.com/alleninstitute/biomolvec-data/">biomolvec</a> and <a href="https://github.com/alleninstitute/nautilex-esm/">nautilex-esm</a> repositories for related notebooks and scripts.</p>
 
 </section>
 
