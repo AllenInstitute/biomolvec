@@ -64,6 +64,7 @@ div.csl-indent {
 </script>
 
 
+<link rel="stylesheet" href="styles.css">
 <meta name="citation_title" content="Do foundation models represent genes differently?">
 <meta name="citation_author" content="Rohan Gala">
 <meta name="citation_author" content="Yeganeh Marghi">
@@ -154,7 +155,7 @@ div.csl-indent {
 
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>Genomic foundation models (FM) have adopted different perspectives to represent nucleotide sequences. Protein FMs relate nucleotide sequence to protein structure, whereas DNA FMs relate it to RNA expression level, chromatin accessibility, and other epigenetic features. The former perspective captures structural/functional properties, whereas the latter captures molecular grammar and regulatory logic. For the hackathon, we compared the degree of overlap of nucleotide sequence representations obtained by FMs that adopt these distinct perspectives.</p>
+<p>Genomic foundation models (FM) have adopted different perspectives to represent nucleotide sequences. Protein FMs relate nucleotide sequence to protein structure, whereas DNA FMs relate it to RNA expression level, chromatin accessibility, and other epigenetic features. The former perspective captures structural/functional properties, whereas the latter captures molecular grammar and regulatory logic. For the hackathon, we obtained and evaluated joint-clusters of nucleotide sequence representations obtained by FMs that adopt these distinct perspectives.</p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
@@ -201,6 +202,7 @@ Figure&nbsp;3: <strong>MMIDAS joint clusters capture functionally relevant genes
 <p>A subset of inputs that such foundation models are trained on are biologically coherent entities. Our preliminary analysis already captures such relationships across two such models - one trained only on DNA sequences to predict masked tokens, and another trained only on amino acid sequences to predict protein structure. Curating and leveraging such data to align representations in biological foundation models with various coupling strategies <span class="citation" data-cites="gala2019coupled marghi2024joint radford2021learning">(<a href="#ref-gala2019coupled" role="doc-biblioref">Gala et al. 2019</a>; <a href="#ref-marghi2024joint" role="doc-biblioref">Marghi et al. 2024</a>; <a href="#ref-radford2021learning" role="doc-biblioref">Radford et al. 2021</a>)</span> might be a way to create truly multimodal biological foundation models.</p>
 <p>A hurdle towards this vision is that large transformer-like models assign different meaning and utility to representations extracted from different layers, and for particular input tokens depending on the training objective. Choosing a single representation per input sequence <em>post-hoc</em>, and without a well-defined task can be tricky. Here we followed examples in the respective repositories for the models we used to obtain a single representation for each gene, which may not be the best approach.</p>
 <p>The downstream analysis with various bioinformatics tools for overrepresentation should be interpreted with caution. We used them here as an exploratory tool to interpret our groupings.</p>
+<p>As an answer to our overarching question driving this exploration, genes that are grouped in one view are clearly spread out in another view, see <code>MMIDAS Joint</code> label set in <a href="#fig-mouse-umap" class="quarto-xref">Figure&nbsp;1</a> and particular examples in <a href="#fig-go-enrichment" class="quarto-xref">Figure&nbsp;3</a>. So as with much of biology, some gene relationships are shared, while others are distinct. However, the joint clusters we obtain post-alignment are meaningful, dispite not appearing coherently in the individual views.</p>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
