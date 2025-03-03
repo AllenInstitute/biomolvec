@@ -1,0 +1,129 @@
+---
+title: Do DNA and Protein foundation models represent genes differently?
+author:
+  - name: Rohan Gala
+    affiliation:
+      - ref: aibs
+  - name: Yeganeh Marghi
+    affiliation:
+      - ref: aibs
+
+affiliations:
+  - id: aibs
+    name: Allen Institute for Brain Science
+date: 2025-03-02
+bibliography: ./refs.bib
+format: html
+editor:
+  render-on-save: true
+
+resources: 
+    - "scatter_plot.html"
+---
+
+## Abstract
+
+Genomic foundation models (FM) have adopted different perspectives to represent nucleotide sequences. Protein FMs relate nucleotide sequence to protein structure, whereas DNA FMs relate it to RNA expression level, chromatin accessibility, and other epigenetic features. The former perspective captures structural/functional properties, whereas the latter captures molecular grammar and regulatory logic. For the hackathon, we obtained and evaluated joint-clusters of nucleotide sequence representations obtained by FMs that adopt these distinct perspectives.
+
+## Results
+
+We started with 20,909 mouse and 19,364 human for which cDNA sequences were available in the Ensembl database. The amino acid sequences for these genes were obtained using the `gget` package [@luebbert2023efficient].
+
+Embeddings for the nucleotide and amino acid sequences for each gene were obtained with the Nucleotide Transformer [@dalla2024nucleotide] and ESM3 [@hayes2025simulating] respectively. We refer to these as NT- and ESM3-embeddings. A 2d UMAP projection of these embeddings is shown in @fig-mouse-umap. We used the Leiden algorithm to cluster the NT- and ESM3-embeddings individually, without any dimensionality reduction. This defines the 20 `leiden-nt` labels, and 55 `leiden-esm3` labels. This exercise suggested that the NT-embeddings have much less structure than the ESM3 embeddings.
+
+
+::: {#fig-mouse-umap}
+
+<iframe width="700" height="350" src="./umap_plot.html"></iframe>
+
+2d UMAP projection of the NT- and ESM3-embeddings for mouse genes. Colors can be chosen based on Leiden clustering individually performed on NT- and ESM3-embeddings, or MMIDAS consensus clusters obtained jointly. Hover on the dots to see the gene symbols and their cluster memberships.
+:::
+
+We also included the 27 `mmidas-joint` labels in @fig-mouse-umap obtained with MMIDAS [@marghi2024joint]. The consensus score is a way to determine if a given gene can be assigned to the same cluster, irrespective of whether we use the NT- or ESM3-embeddings. The overall consensus score (over all genes) as a function of the number of joint clusters in the iterative MMIDAS training process is shown in @fig-mmidas-consensus (left). 
+
+::: {#fig-mmidas-consensus}
+
+![](./mmidas_consensus.png){width=650}
+
+**MMIDAS for consensus clusters** Left: The consensus score across different views (NT- and ESM3-embeddings) of genes as a function of dimensionality of the discrete representation layer in MMIDAS. Black dashed line indicates the maximum number of categories with consensus score of 0.9. Right: MMIDAS-assigned clusters are highly coherent across the two views (dominant diagonal in the heatmap).
+:::
+
+We investigated genes included in MMIDAS joint clusters with `gget`[@luebbert2023efficient]. In particular, `gget` provides an interface to [Enrichr](https://maayanlab.cloud/Enrichr/) [@xie2021gene], and results are based on the `GO Biological Process` category with annotations from the 2021 annotation release. 
+
+::: {#fig-go-enrichment}
+
+![](./go_enrichment.png){width=750}
+
+**MMIDAS joint clusters capture functionally relevant genes** GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels. The top two panels are based on GO ontology 2021, and the bottom-most panel is based on GO ontology 2024. Full results for the bottom panel are available [here](https://github.com/AllenInstitute/biomolvec-data/blob/main/mmidas-joint-18-analysis.txt).
+:::
+
+Among the clusters we investigated, we noticed that none of the 215 genes in `mmidas-joint-18` were found through `gget`. The gene names suggested that these genes are all part of the immunoglobin family. These genes also appear in clustered on both the NT- and ESM3-embedding UMAPs. Moreover, we noticed that [immunoglobin genes](https://github.com/AllenInstitute/biomolvec-data/blob/main/mmidas-joint-18-genes.txt) also cluster together in a single `mmidas-joint` grouping of human genes. We used the PANTHER Overrepresentation Test [@mi2019protocol] through the [GO ontology resource](https://www.geneontology.org/) which uses a more recent version of the GO ontology to investigate this further. This analysis found that genes in this cluster are significantly overrepresented for [immunoglobulin mediated immune response](https://amigo.geneontology.org/amigo/term/GO:0016064) and [antigen binding](https://amigo.geneontology.org/amigo/term/GO:0003823), among several other terms.
+
+
+## Discussion
+
+Our analysis suggests that genes that are grouped in one view are not as coherent in another view, see different label sets in @fig-mouse-umap and particular examples in @fig-go-enrichment. As with much of biology, some gene relationships are shared, while others are distinct. Nevertheless, the joint clusters we obtain with post-hoc alignment are meaningful. Our analysis captured a set of immunoglobin genes across species that are annotated only in more recent versions of commonly used databases for gene annotation. This approach may therefore offer a way to refine ontologies. 
+
+A subset of inputs that distinct foundation models are trained on are biologically coherent entities, e.g. genes. Our preliminary analysis already captures some relationships across two such models - one trained only on DNA sequences to predict masked tokens, and another trained only on amino acid sequences to predict protein structure. Curating and leveraging such data through analyses of multiple existing foundation models could be used to align representations in new models with various coupling strategies [@gala2019coupled; @marghi2024joint; @radford2021learning] - towards building truly multimodal biological foundation models.
+
+One hurdle towards this vision is that large transformer-like models assign different meaning and utility to representations extracted from different layers, and for particular input tokens depending on the training objective. Choosing a single representation per input sequence _post-hoc_, and without a well-defined task can be tricky. Here we followed examples in the respective repositories for the models we used to obtain a single representation for each gene, which may not be the best approach.
+
+The downstream analysis with various bioinformatics tools for overrepresentation should be interpreted with caution. We used them here as an exploratory tool to interpret our groupings.
+
+## Data
+
+We obtained genome-wide cDNA sequences for human and mouse from [Ensembl](https://useast.ensembl.org/index.html). Custom scripts and the `gget` package [@luebbert2023efficient] were used to obtain the nucleotide and amino acid sequences corresponding to all available mouse and human genes in the Ensembl database. We ended up with 20,909 mouse and 19,364 human genes at this stage. 
+
+::: {#tbl-aa-emb .rpe style="font-size: 95%; width: 90%; margin: auto auto;" .striped .hover .borderless .responsive-sm .table-caption}
+
+|Species| Initial set   |Safety filter exceptions | Enabled by workaround |Embeddings available |
+|:---:  |:---:          |:---:                    | :---:                 |:---:                |
+|Mouse  |20,909         |32                       | 546                   |20,877               |
+|Human  |19,364         |26                       | 596                   |19,338               |
+
+**Summary of amino acid sequence embeddings** The safety filter exceptions ultimately influence a small fraction of the sequences, so we retained them all for the downstream analysis.
+:::
+
+ESM3 has safety checks that prevent it from embedding certain amino acid sequences. We could bypass these filters by masking a variable fraction of amino acids in the sequence. Even with this approach, embeddings for a small fraction of amino acid sequences could not be obtained, @tbl-aa-emb. 
+
+::: {#fig-seq-length}
+
+![Sequence length distribution](./length_dist.png){width=650}
+
+**Sequence length distribution** Distribution of nucleotide and amino acid sequences corresponding to all genes in the Ensembl database for mouse and human. Black line indicates the sequence length corresponding to the maximum token length for the nucleotide transformer. The x-axis is truncated, and excludes a small number of sequences (e.g. Ttn, which has a sequence length of 1,23,179 nucleotides and 35,390 amino-acids)
+:::
+
+
+## Models
+
+Nucleotide Transformer [@dalla2024nucleotide] as our DNA FM and ESM3 [@hayes2025simulating] as our protein FM. Finally, we used MMIDAS [@marghi2024joint] to obtain joint embeddings of genes based on their representations in the DNA and protein FMs. 
+
+**Nucleotide Transformer:** This model [@dalla2024nucleotide] is pre-trained to predict masked tokens in DNA sequences. Tokens in the nucleotide transformer are used to represent k-mers (k=6). Adding a few extra tokens to indicate `CLS`, `MASK`, `PAD` etc. takes the vocabulary size to 4,104. The maximum token length in the models considered is 1,000, which corresponds to sequences with length of roughly 5,952 nucleotides. We truncated any input sequence to match this maximum value, @fig-seq-length.
+
+We obtained embeddings corresonding to the `CLS` token for all genes. There is no single representation for which layer to extract such embeddings from. We followed examples in the repository, and obtained representations from layer 20 of the `500M multi v2` and `500M human` models for the mouse and human nucleotide sequences respectively. The dimension of the embeddings are of 1,280 for mouse genes, and 1024 for human genes. We refer to these as NT embeddings. 
+
+**ESM3:** ESM3-open[@hayes2025simulating] is a 98B parameter model that is trained on 2.78B natural protein sequences to predict sequence, structure, and functional aspects using a masked language modeling objective. This model incorporates a guardrails that can prevent inference on potentially hazardous sequences, see [model card](https://huggingface.co/EvolutionaryScale/esm3-sm-open-v1).
+
+The model exposes per-residue embeddings, which represent each amino acid within the sequence, and a mean embedding, which is the average of all residue embeddings across the entire protein sequence. For both mouse and human sequences, we only use the 1,536 dimensional mean embedding to represent the amino acid sequences corresponding to the genes. We refer to these as ESM3 embeddings.
+
+**MMIDAS:** [@marghi2024joint] recently proposed a model to obtain joint embeddings of multimodal single-cell resolution data. Treating genes as our samples, and NT- and ESM3-embeddings as 'modalities', we obtained consensus clusters for genes. 
+
+MMIDAS sparsifies the discrete representation layer to identify an optimal number of consensus categories across modalities. At the start of training, the network initializes an overparameterized discrete latent space, establishing an upper bound on the number of clusters. The model refines the dimensionality of the discrete latent space (equivalent to number of categories or clusters) by evaluating each category's contribution based on a consensus measure between the modalities. Categories that do not maintain similar probabilities across modalities are pruned. This iterative process continues until all remaining categories satisfy a predefined minimum consensus threshold.
+
+## Carbon footprint
+
+In relation to the sustainability focus of the hackathon, we calculated a rough estimate of the carbon footprint of the computations we performed.
+
+**Nucleotide Transformer:** A single `A100` GPU on the local high performance computing cluster was used to run inference with nucleotide transformer. The largest batch size we could use without running out of memory on this hardware was 20, and the inference time for the dataset was around 20 minutes. The total energy consumption for this exercise is estimated to be 0.2 kW.
+
+**ESM3:** We ran computations on `ml.g5.2xlarge` instances via Amazon SageMaker using an endpoint for the ESM3 hosted on their marketplace. Generating embeddings for all genes of a single species took about 10 hours. The total energy consumption for `ml.g5.2xlarge` was about 6.0 kW. 
+
+**MMIDAS:** For training MMIDAS, we utilized the local high-performance computing (HPC), using one `Tesla V100 SXM2` GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14.0 kW.
+
+**Evo2:** We attempted to install and use a more recent DNA foundation model, Evo2 [@nguyen2024sequence]. The [minimum requirements](https://docs.nvidia.com/nim/bionemo/evo2/1.0.0/prerequisites.html) to use this model requires `H100`  or `H200` GPUs. We used 2 hours of an `ml.p5.48xlarge` instance for this. Using the 700W maximum power rating for 8 x `H100` on this instance leads to an estimate of 11.2 kW.  
+
+All embeddings were saved on shared storage to prevent duplicate computations by team members. Future experiments could incorporate tools like [CodeCarbon](https://mlco2.github.io/codecarbon/index.html) to more reliably track the carbon footprint of experiments run across computing environments and devices.
+
+## Code
+
+See the [biomolvec](https://github.com/alleninstitute/biomolvec-data/) and [nautilex-esm](https://github.com/alleninstitute/nautilex-esm/) repositories for related notebooks and scripts.

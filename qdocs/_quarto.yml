@@ -1,0 +1,24 @@
+project:
+  type: manuscript
+  output-dir: ../docs
+
+manuscript:
+  article: index.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    comments:
+      hypothesis: true
+  docx: default
+  jats: default
+
+  # (other formats)
+  # pdf: default
+
+execute:
+  freeze: true
+
+
+

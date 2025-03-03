@@ -65,22 +65,6 @@ div.csl-indent {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
-<style>
-
-      .quarto-title-block .quarto-title-banner h1,
-      .quarto-title-block .quarto-title-banner h2,
-      .quarto-title-block .quarto-title-banner h3,
-      .quarto-title-block .quarto-title-banner h4,
-      .quarto-title-block .quarto-title-banner h5,
-      .quarto-title-block .quarto-title-banner h6
-      {
-        color: #000000;
-      }
-
-      .quarto-title-block .quarto-title-banner {
-        color: #000000;
-      }
-</style>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -218,14 +202,14 @@ Figure&nbsp;2: <strong>MMIDAS for consensus clusters</strong> Left: The consensu
 <div id="fig-go-enrichment" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-go-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="./go_enrichment.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;3: MMIDAS joint clusters capture functionally relevant genes GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels. The top two panels are based on GO ontology 2021, and the bottom-most panel is based on GO ontology 2024."><img src="./go_enrichment.png" class="img-fluid figure-img" width="750"></a>
+<a href="./go_enrichment.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;3: MMIDAS joint clusters capture functionally relevant genes GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels. The top two panels are based on GO ontology 2021, and the bottom-most panel is based on GO ontology 2024. Full results for the bottom panel are available here."><img src="./go_enrichment.png" class="img-fluid figure-img" width="750"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-go-enrichment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: <strong>MMIDAS joint clusters capture functionally relevant genes</strong> GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels. The top two panels are based on GO ontology 2021, and the bottom-most panel is based on GO ontology 2024.
+Figure&nbsp;3: <strong>MMIDAS joint clusters capture functionally relevant genes</strong> GO enrichment of genes in the MMIDAS joint clusters. The position of genes in the NT- and ESM3-embedding UMAPs are shown in the right panels. The top two panels are based on GO ontology 2021, and the bottom-most panel is based on GO ontology 2024. Full results for the bottom panel are available <a href="https://github.com/AllenInstitute/biomolvec-data/blob/main/mmidas-joint-18-analysis.txt">here</a>.
 </figcaption>
 </figure>
 </div>
-<p>Among the clusters we investigated, we noticed that none of the 215 genes in <code>mmidas-joint-18</code> were found through <code>gget</code>. The gene names suggested that these genes are all part of the immunoglobin family. These genes also appear in clustered on both the NT- and ESM3-embedding UMAPs. Moreover, we noticed that <a href="">immunoglobin genes</a> also cluster together in a single <code>mmidas-joint</code> grouping of human genes. We used the PANTHER Overrepresentation Test <span class="citation" data-cites="mi2019protocol">(<a href="#ref-mi2019protocol" role="doc-biblioref">Mi et al. 2019</a>)</span> through the <a href="https://www.geneontology.org/">GO ontology resource</a> which uses a more recent version of the GO ontology to investigate this further. This analysis found that genes in this cluster are significantly overrepresented for <a href="https://amigo.geneontology.org/amigo/term/GO:0016064">immunoglobulin mediated immune response</a> and <a href="https://amigo.geneontology.org/amigo/term/GO:0003823">antigen binding</a>, among several other terms.</p>
+<p>Among the clusters we investigated, we noticed that none of the 215 genes in <code>mmidas-joint-18</code> were found through <code>gget</code>. The gene names suggested that these genes are all part of the immunoglobin family. These genes also appear in clustered on both the NT- and ESM3-embedding UMAPs. Moreover, we noticed that <a href="https://github.com/AllenInstitute/biomolvec-data/blob/main/mmidas-joint-18-genes.txt">immunoglobin genes</a> also cluster together in a single <code>mmidas-joint</code> grouping of human genes. We used the PANTHER Overrepresentation Test <span class="citation" data-cites="mi2019protocol">(<a href="#ref-mi2019protocol" role="doc-biblioref">Mi et al. 2019</a>)</span> through the <a href="https://www.geneontology.org/">GO ontology resource</a> which uses a more recent version of the GO ontology to investigate this further. This analysis found that genes in this cluster are significantly overrepresented for <a href="https://amigo.geneontology.org/amigo/term/GO:0016064">immunoglobulin mediated immune response</a> and <a href="https://amigo.geneontology.org/amigo/term/GO:0003823">antigen binding</a>, among several other terms.</p>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
