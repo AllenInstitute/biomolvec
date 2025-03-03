@@ -120,7 +120,7 @@ In relation to the sustainability focus of the hackathon, we calculated a rough 
 
 **MMIDAS:** For training MMIDAS, we utilized the local high-performance computing (HPC), using one `Tesla V100 SXM2` GPU with a 0.3 kW power rating. Training runs took 23 hours each (for mouse and human), resulting in a total energy consumption of 14.0 kW.
 
-**Evo2:** We attempted to install and use a more recent DNA foundation model, Evo2 [@nguyen2024sequence]. The [minimum requirements](https://docs.nvidia.com/nim/bionemo/evo2/1.0.0/prerequisites.html) to use this model requires `H100`  or `H200` GPUs. We used 2 hours of an `ml.p5.48xlarge` instance for this. Using the 700W maximum power rating for 8 x `H100` on this instance leads to an estimate of 11.2 kW.  
+**Evo2:** We aspired to use a more recent DNA foundation model Evo2 [@nguyen2024sequence] for our analysis. The [minimum requirements](https://docs.nvidia.com/nim/bionemo/evo2/1.0.0/prerequisites.html) to use this model lists 2 x `H100`  or `H200` GPUs. We used 2 hours of an `ml.p5.48xlarge` instance to attempt an install of Evo2 (eventually abandoned because of the high cost, and multiple independently reported issues in their code base). Using the 700W maximum power rating per `H100` on this instance leads to an estimate of 11.2 kW.
 
 All embeddings were saved on shared storage to prevent duplicate computations by team members. Future experiments could incorporate tools like [CodeCarbon](https://mlco2.github.io/codecarbon/index.html) to more reliably track the carbon footprint of experiments run across computing environments and devices.
 
